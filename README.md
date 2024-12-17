@@ -87,6 +87,33 @@ The tool supports two detection modes:
 - Name: `[original_name]_cropped.png`
 - Aspect ratio: Square (1:1)
 
+## Development
+
+To set up the development environment:
+
+```bash
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
+# Install dependencies
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+pip install -r requirements-test.txt
+
+# Install pre-commit hooks
+pre-commit install
+```
+
+The project uses pre-commit hooks to ensure code quality:
+- Black: Formats Python code automatically on commit
+- Additional hooks can be configured in `.pre-commit-config.yaml`
+
+To manually run the pre-commit hooks on all files:
+```bash
+pre-commit run
+```
+
 ---
 
 # FaceCrop 人像裁切工具
