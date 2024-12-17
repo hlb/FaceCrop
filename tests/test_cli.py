@@ -69,6 +69,70 @@ class TestCLI(unittest.TestCase):
         with self.assertRaises(SystemExit) as cm:
             main()
         self.assertEqual(cm.exception.code, 0)
-
+        
+    @patch('sys.argv')
+    def test_single_file_processing_failure(self, mock_argv):
+        """Test processing a single file that fails"""
+        # Create an empty file that's not a valid image
+        invalid_image = os.path.join(self.test_dir, 'invalid.jpg')
+        with open(invalid_image, 'w') as f:
+            f.write('not an image')
+            
+        sys.argv = ['face_crop.py', invalid_image]
+        with self.assertRaises(SystemExit) as cm:
+            main()
+        self.assertEqual(cm.exception.code, 1)
+        
+    @patch('sys.argv')
+    def test_empty_directory_processing(self, mock_argv):
+        """Test processing an empty directory"""
+        empty_dir = os.path.join(self.test_dir, 'empty')
+        os.makedirs(empty_dir)
+        sys.argv = ['face_crop.py', empty_dir, '--output', self.output_dir]
+        with self.assertRaises(SystemExit) as cm:
+            main()
+        self.assertEqual(cm.exception.code, 1)
+        
+    @patch('sys.argv')
+    def test_directory_with_invalid_images(self, mock_argv):
+        """Test processing a directory with invalid images"""
+        input_dir = os.path.join(self.test_dir, 'invalid_images')
+        os.makedirs(input_dir)
+        
+        # Create an invalid image file
+        invalid_image = os.path.join(input_dir, 'invalid.jpg')
+        with open(invalid_image, 'w') as f:
+            f.write('not an image')
+            
+        sys.argv = ['face_crop.py', input_dir, '--output', self.output_dir]
+        with self.assertRaises(SystemExit) as cm:
+            main()
+        self.assertEqual(cm.exception.code, 1)
+        
+    @patch('sys.argv')
+    def test_directory_with_mixed_files(self, mock_argv):
+        """Test processing a directory with both valid and invalid images"""
+        input_dir = os.path.join(self.test_dir, 'mixed')
+        os.makedirs(input_dir)
+        
+        # Copy valid image
+        valid_image = os.path.join(input_dir, 'valid.jpg')
+        shutil.copy2(self.fixture_image, valid_image)
+        
+        # Create an invalid image
+        invalid_image = os.path.join(input_dir, 'invalid.jpg')
+        with open(invalid_image, 'w') as f:
+            f.write('not an image')
+            
+        # Create a non-image file
+        text_file = os.path.join(input_dir, 'readme.txt')
+        with open(text_file, 'w') as f:
+            f.write('This is not an image')
+            
+        sys.argv = ['face_crop.py', input_dir, '--output', self.output_dir]
+        with self.assertRaises(SystemExit) as cm:
+            main()
+        self.assertEqual(cm.exception.code, 0)  # Should succeed because at least one image processed
+        
 if __name__ == '__main__':
     unittest.main()
