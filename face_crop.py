@@ -99,36 +99,46 @@ def process_image(input_path, output_path, circular_mask=False):
         return True
 
 def main():
-    parser = argparse.ArgumentParser(description='Crop faces from images with transparent background')
-    parser.add_argument('--input', default='.', help='Input folder path (default: current directory)')
-    parser.add_argument('--output', default='results', help='Output folder path (default: ./results)')
-    parser.add_argument('--circular', action='store_true', help='Apply circular mask to the output')
+    parser = argparse.ArgumentParser(description='Crop faces from images')
+    parser.add_argument('input', help='Input image file or directory')
+    parser.add_argument('--output', help='Output directory (required for directory input)')
+    parser.add_argument('--circular', action='store_true', help='Create circular mask')
     args = parser.parse_args()
-    
-    # Create output directory if it doesn't exist
-    os.makedirs(args.output, exist_ok=True)
-    
-    # Supported image formats
-    supported_formats = ('.jpg', '.jpeg', '.png', '.webp')
-    
-    # Process all images in input directory
-    processed_count = 0
-    total_count = 0
-    
-    for filename in os.listdir(args.input):
-        if filename.lower().endswith(supported_formats):
-            total_count += 1
-            input_path = os.path.join(args.input, filename)
-            base_name = os.path.splitext(filename)[0]
-            output_path = os.path.join(args.output, f"{base_name}_cropped.png")
-            
-            print(f"Processing: {filename}")
-            if process_image(input_path, output_path, args.circular):
-                processed_count += 1
-    
-    print(f"\nProcessing complete!")
-    print(f"Successfully processed {processed_count} out of {total_count} images")
-    print(f"Results saved in: {os.path.abspath(args.output)}")
+
+    # Check if input is a file or directory
+    if os.path.isfile(args.input):
+        # Single file processing
+        output_path = args.output if args.output else os.path.splitext(args.input)[0] + '_cropped.png'
+        if process_image(args.input, output_path, args.circular):
+            print(f"Successfully processed {args.input} -> {output_path}")
+        else:
+            print(f"Failed to process {args.input}")
+    else:
+        # Directory processing
+        if not args.output:
+            print("Error: Output directory is required when processing a directory")
+            return
+        
+        if not os.path.exists(args.output):
+            os.makedirs(args.output)
+
+        success_count = 0
+        total_count = 0
+
+        for filename in os.listdir(args.input):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+                input_path = os.path.join(args.input, filename)
+                output_filename = os.path.splitext(filename)[0] + '_cropped.png'
+                output_path = os.path.join(args.output, output_filename)
+                
+                total_count += 1
+                if process_image(input_path, output_path, args.circular):
+                    success_count += 1
+                    print(f"Successfully processed {filename}")
+                else:
+                    print(f"Failed to process {filename}")
+
+        print(f"\nProcessing complete: {success_count}/{total_count} images successfully processed")
 
 if __name__ == '__main__':
     main()

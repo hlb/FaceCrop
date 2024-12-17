@@ -26,20 +26,27 @@ pip install -r requirements.txt
 
 ## Usage
 
-Basic usage:
+Process a single image:
 ```bash
-python face_crop.py --input /path/to/images --output /path/to/output
+python face_crop.py image.jpg
+```
+
+Process a directory of images:
+```bash
+python face_crop.py input_directory --output output_directory
 ```
 
 With circular mask:
 ```bash
-python face_crop.py --input /path/to/images --output /path/to/output --circular
+python face_crop.py image.jpg --circular
+# or for directory
+python face_crop.py input_directory --output output_directory --circular
 ```
 
 ### Arguments
 
-- `--input`: Input folder path (default: current directory)
-- `--output`: Output folder path (default: ./results)
+- `input`: Input image file or directory path
+- `--output`: Output directory path (required for directory input, optional for single file)
 - `--circular`: Apply circular mask to the output (optional)
 
 ## Output
@@ -78,20 +85,27 @@ pip install -r requirements.txt
 
 ## 使用方法
 
-基本用法：
+處理單張圖片：
 ```bash
-python face_crop.py --input /圖片資料夾路徑 --output /輸出資料夾路徑
+python face_crop.py 圖片.jpg
+```
+
+處理整個資料夾：
+```bash
+python face_crop.py 輸入資料夾 --output 輸出資料夾
 ```
 
 使用圓形遮罩：
 ```bash
-python face_crop.py --input /圖片資料夾路徑 --output /輸出資料夾路徑 --circular
+python face_crop.py 圖片.jpg --circular
+# 或是處理資料夾時
+python face_crop.py 輸入資料夾 --output 輸出資料夾 --circular
 ```
 
 ### 參數說明
 
-- `--input`：輸入資料夾路徑（預設：目前資料夾）
-- `--output`：輸出資料夾路徑（預設：./results）
+- `input`：輸入圖片或資料夾路徑
+- `--output`：輸出資料夾路徑（處理資料夾時必填，處理單張圖片時選填）
 - `--circular`：套用圓形遮罩（選用）
 
 ## 輸出結果
