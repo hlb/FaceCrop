@@ -126,7 +126,7 @@ def main():
         total_count = 0
 
         for filename in os.listdir(args.input):
-            if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
+            if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.webp')):
                 input_path = os.path.join(args.input, filename)
                 output_filename = os.path.splitext(filename)[0] + '_cropped.png'
                 output_path = os.path.join(args.output, output_filename)
