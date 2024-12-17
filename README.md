@@ -1,5 +1,7 @@
 # FaceCrop
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://facecropdemo.streamlit.app/)
+
 A Python tool for automatically detecting and cropping portrait photos with transparent backgrounds. Available both as a command-line tool and a web interface.
 
 Before: Original image with full background and surrounding context
