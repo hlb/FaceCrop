@@ -1,4 +1,4 @@
-opencv-python>=4.8.0
+opencv-python-headless>=4.10.0
 Pillow>=10.0.0
 mediapipe==0.10.13
 streamlit>=1.29.0
