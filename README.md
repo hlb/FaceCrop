@@ -111,7 +111,7 @@ The project uses pre-commit hooks to ensure code quality:
 
 To manually run the pre-commit hooks on all files:
 ```bash
-pre-commit run
+pre-commit run --all-files
 ```
 
 ---
