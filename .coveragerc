@@ -1,0 +1,25 @@
+[run]
+# Enable branch coverage
+branch = True
+
+# Exclude specific files or directories
+omit =
+    tests/*
+    __pycache__/*
+    */__init__.py
+    setup.py
+    venv/*
+
+[report]
+# Show missing lines in the report
+show_missing = True
+# Sort files in the report by their coverage percentage
+sort = Cover
+
+# Exclude lines from coverage
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    pass
