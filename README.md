@@ -2,6 +2,14 @@
 
 A Python command-line tool for automatically detecting and cropping portrait photos with transparent backgrounds.
 
+Before: Original image with full background and surrounding context
+
+![Before](docs/before.png)
+
+After: Automatically cropped image focused on the face and upper body, with transparent background
+
+![Before](docs/after.png)
+
 ## Features
 
 - Automatic face detection and portrait cropping
