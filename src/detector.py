@@ -2,6 +2,7 @@ import cv2
 import mediapipe as mp
 import numpy as np
 
+
 class FaceDetector:
     def __init__(self):
         self.mp_face_detection = mp.solutions.face_detection
@@ -45,7 +46,7 @@ class FaceDetector:
         if not face_detected and not strict:
             gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
             gray_eq = cv2.equalizeHist(gray)
-            
+
             for scale in [1.02, 1.05, 1.08]:
                 faces = self.haar_cascade.detectMultiScale(
                     gray_eq,

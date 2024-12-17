@@ -3,6 +3,7 @@ from PIL import Image
 from .detector import FaceDetector
 from .utils import create_circular_mask
 
+
 class ImageProcessor:
     def __init__(self):
         self.detector = FaceDetector()

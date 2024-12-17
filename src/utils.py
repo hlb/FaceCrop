@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw
 
+
 def create_circular_mask(size):
     """Create a circular mask for the image"""
     mask = Image.new("L", size, 0)

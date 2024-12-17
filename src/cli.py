@@ -3,6 +3,7 @@ import argparse
 import sys
 from .processor import ImageProcessor
 
+
 def main():
     parser = argparse.ArgumentParser(description="Crop faces from images")
     parser.add_argument("input", help="Input image file or directory")
@@ -10,7 +11,11 @@ def main():
         "--output", help="Output directory (required for directory input)"
     )
     parser.add_argument("--circular", action="store_true", help="Create circular mask")
-    parser.add_argument("--strict", action="store_true", help="Only use MediaPipe for face detection (more accurate but may miss some faces)")
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Only use MediaPipe for face detection (more accurate but may miss some faces)",
+    )
     args = parser.parse_args()
 
     processor = ImageProcessor()
@@ -48,7 +53,9 @@ def main():
                 output_path = os.path.join(args.output, output_filename)
 
                 total_count += 1
-                if processor.process_image(input_path, output_path, args.circular, args.strict):
+                if processor.process_image(
+                    input_path, output_path, args.circular, args.strict
+                ):
                     success_count += 1
                     print(f"Successfully processed {filename}")
                 else:
@@ -63,6 +70,7 @@ def main():
         else:
             print(f"Successfully processed {success_count} out of {total_count} images")
             sys.exit(0)
+
 
 if __name__ == "__main__":
     main()
