@@ -1,5 +1,6 @@
 import os
 import argparse
+import sys
 from .processor import ImageProcessor
 
 def main():
@@ -23,13 +24,15 @@ def main():
         )
         if processor.process_image(args.input, output_path, args.circular):
             print(f"Successfully processed {args.input} -> {output_path}")
+            sys.exit(0)
         else:
             print(f"Failed to process {args.input}")
+            sys.exit(1)
     else:
         # Directory processing
         if not args.output:
             print("Error: Output directory is required when processing a directory")
-            return
+            sys.exit(1)
 
         if not os.path.exists(args.output):
             os.makedirs(args.output)
@@ -50,9 +53,15 @@ def main():
                 else:
                     print(f"Failed to process {filename}")
 
-        print(
-            f"\nProcessing complete: {success_count}/{total_count} images successfully processed"
-        )
+        if total_count == 0:
+            print("No image files found in directory")
+            sys.exit(1)
+        elif success_count == 0:
+            print("Failed to process any images")
+            sys.exit(1)
+        else:
+            print(f"Successfully processed {success_count} out of {total_count} images")
+            sys.exit(0)
 
 if __name__ == "__main__":
     main()
