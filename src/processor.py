@@ -7,7 +7,7 @@ class ImageProcessor:
     def __init__(self):
         self.detector = FaceDetector()
 
-    def process_image(self, input_path, output_path, circular_mask=False):
+    def process_image(self, input_path, output_path, circular_mask=False, strict=False):
         """Process a single image: detect face, crop upper body, and create transparent background"""
         # Read image
         img = cv2.imread(input_path)
@@ -20,7 +20,7 @@ class ImageProcessor:
         height, width = img.shape[:2]
 
         # Detect face
-        face_bbox = self.detector.detect_face(img)
+        face_bbox = self.detector.detect_face(img, strict=strict)
         if not face_bbox:
             print(f"No face detected in {input_path}")
             return False

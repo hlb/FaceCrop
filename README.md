@@ -49,11 +49,37 @@ Add circular mask:
 python face_crop.py image.jpg --circular
 ```
 
+Use strict mode (only MediaPipe detection):
+```bash
+python face_crop.py image.jpg --strict
+```
+
+You can combine options:
+```bash
+python face_crop.py input_directory --output output_directory --circular --strict
+```
+
+### Detection Modes
+
+The tool supports two detection modes:
+
+1. **Normal Mode** (default):
+   - Uses multiple detection methods for maximum coverage
+   - May occasionally detect non-human faces
+   - Best for processing images where you want to catch all possible faces
+
+2. **Strict Mode** (`--strict`):
+   - Uses only MediaPipe's face detection
+   - More accurate for human faces
+   - Prevents false positives (e.g., won't detect cat faces)
+   - Recommended when processing photos where accuracy is crucial
+
 ### Arguments
 
 - `input`: Input image file or directory
 - `--output`: Output directory (required for directory input)
 - `--circular`: Add circular mask (optional)
+- `--strict`: Use strict mode (optional)
 
 ## Output
 
@@ -106,11 +132,37 @@ python face_crop.py 輸入資料夾 --output 輸出資料夾
 python face_crop.py 圖片.jpg --circular
 ```
 
+使用嚴格模式（僅使用 MediaPipe 偵測）：
+```bash
+python face_crop.py 圖片.jpg --strict
+```
+
+您可以結合選項：
+```bash
+python face_crop.py 輸入資料夾 --output 輸出資料夾 --circular --strict
+```
+
+### 偵測模式
+
+工具支援兩種偵測模式：
+
+1. **正常模式**（預設）：
+   - 使用多種偵測方法以達到最大覆蓋範圍
+   - 可能偶爾偵測到非人臉
+   - 適合處理圖片時想要捕捉所有可能的人臉
+
+2. **嚴格模式** (`--strict`):
+   - 僅使用 MediaPipe 的人臉偵測
+   - 對人臉更準確
+   - 防止偵測到非人臉（例如，不會偵測到貓臉）
+   - 建議在處理照片時需要準確度時使用
+
 ### 參數說明
 
 - `input`：輸入圖片或資料夾
 - `--output`：輸出資料夾（處理資料夾時必須指定）
 - `--circular`：添加圓形遮罩（選用）
+- `--strict`：使用嚴格模式（選用）
 
 ## 輸出結果
 

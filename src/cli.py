@@ -10,6 +10,7 @@ def main():
         "--output", help="Output directory (required for directory input)"
     )
     parser.add_argument("--circular", action="store_true", help="Create circular mask")
+    parser.add_argument("--strict", action="store_true", help="Only use MediaPipe for face detection (more accurate but may miss some faces)")
     args = parser.parse_args()
 
     processor = ImageProcessor()
@@ -22,7 +23,7 @@ def main():
             if args.output
             else os.path.splitext(args.input)[0] + "_cropped.png"
         )
-        if processor.process_image(args.input, output_path, args.circular):
+        if processor.process_image(args.input, output_path, args.circular, args.strict):
             print(f"Successfully processed {args.input} -> {output_path}")
             sys.exit(0)
         else:
@@ -47,7 +48,7 @@ def main():
                 output_path = os.path.join(args.output, output_filename)
 
                 total_count += 1
-                if processor.process_image(input_path, output_path, args.circular):
+                if processor.process_image(input_path, output_path, args.circular, args.strict):
                     success_count += 1
                     print(f"Successfully processed {filename}")
                 else:

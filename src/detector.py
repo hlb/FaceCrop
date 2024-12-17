@@ -12,14 +12,15 @@ class FaceDetector:
             cv2.data.haarcascades + "haarcascade_profileface.xml"
         )
 
-    def detect_face(self, img):
+    def detect_face(self, img, strict=False):
         """
         Detect face in image using multiple methods
+        Args:
+            img: Input image
+            strict: If True, only use MediaPipe detection (more accurate but may miss some faces)
         Returns: tuple (x, y, w, h) or None if no face detected
         """
         height, width = img.shape[:2]
-        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-        gray_eq = cv2.equalizeHist(gray)
         rgb_img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
         # Try MediaPipe detection first with very low confidence threshold
@@ -40,8 +41,11 @@ class FaceDetector:
                     h = int(bbox.height * height)
                     face_detected = True
 
-        # If MediaPipe fails, try Haar Cascade
-        if not face_detected:
+        # If MediaPipe fails and not in strict mode, try Haar Cascade
+        if not face_detected and not strict:
+            gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+            gray_eq = cv2.equalizeHist(gray)
+            
             for scale in [1.02, 1.05, 1.08]:
                 faces = self.haar_cascade.detectMultiScale(
                     gray_eq,
@@ -56,22 +60,22 @@ class FaceDetector:
                     face_detected = True
                     break
 
-        # If frontal detection fails, try profile face detection
-        if not face_detected:
-            for is_flipped in [False, True]:
-                current_img = cv2.flip(gray_eq, 1) if is_flipped else gray_eq
-                faces = self.profile_cascade.detectMultiScale(
-                    current_img,
-                    scaleFactor=1.05,
-                    minNeighbors=2,
-                    minSize=(30, 30),
-                    flags=cv2.CASCADE_SCALE_IMAGE,
-                )
-                if len(faces) > 0:
-                    x, y, w, h = faces[0]
-                    if is_flipped:
-                        x = width - x - w
-                    face_detected = True
-                    break
+            # If frontal detection fails, try profile face detection
+            if not face_detected:
+                for is_flipped in [False, True]:
+                    current_img = cv2.flip(gray_eq, 1) if is_flipped else gray_eq
+                    faces = self.profile_cascade.detectMultiScale(
+                        current_img,
+                        scaleFactor=1.05,
+                        minNeighbors=2,
+                        minSize=(30, 30),
+                        flags=cv2.CASCADE_SCALE_IMAGE,
+                    )
+                    if len(faces) > 0:
+                        x, y, w, h = faces[0]
+                        if is_flipped:
+                            x = width - x - w
+                        face_detected = True
+                        break
 
         return (x, y, w, h) if face_detected else None
