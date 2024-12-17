@@ -1,6 +1,6 @@
 # FaceCrop
 
-A Python command-line tool for automatically detecting and cropping portrait photos with transparent backgrounds.
+A Python tool for automatically detecting and cropping portrait photos with transparent backgrounds. Available both as a command-line tool and a web interface.
 
 Before: Original image with full background and surrounding context
 
@@ -18,6 +18,7 @@ After: Automatically cropped image focused on the face and upper body, with tran
 - Batch processing for multiple images
 - Supports common image formats (JPG, PNG, WEBP)
 - Preserves original image quality
+- Web interface for easy use
 
 For technical details about the implementation, please see [TECHNICAL.md](TECHNICAL.md).
 
@@ -28,11 +29,31 @@ For technical details about the implementation, please see [TECHNICAL.md](TECHNI
 git clone https://github.com/yourusername/FaceCrop.git
 cd FaceCrop
 
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+
 # Install dependencies
 pip install -r requirements.txt
 ```
 
 ## Usage
+
+### Web Interface
+
+Start the web interface:
+```bash
+streamlit run web_app.py
+```
+
+The web interface provides:
+- Drag-and-drop file upload for multiple images
+- Interactive controls for circular mask and strict mode
+- Preview of original and processed images
+- Individual download buttons for each image
+- Batch download option for all processed images
+
+### Command Line
 
 Process a single image:
 ```bash
@@ -118,7 +139,7 @@ pre-commit run --all-files
 
 # FaceCrop 人像裁切工具
 
-自動檢測並裁切人像照片的 Python 命令列工具，支援透明背景輸出。
+自動檢測並裁切人像照片的 Python 工具，支援透明背景輸出。可使用命令列工具或網頁介面。
 
 ## 功能特點
 
@@ -128,6 +149,7 @@ pre-commit run --all-files
 - 支援批次處理多張圖片
 - 支援常見圖片格式（JPG、PNG、WEBP）
 - 保持原始圖片品質
+- 網頁介面提供易用操作
 
 技術實作細節請參考 [TECHNICAL.md](TECHNICAL.md)。
 
@@ -138,11 +160,31 @@ pre-commit run --all-files
 git clone https://github.com/yourusername/FaceCrop.git
 cd FaceCrop
 
+# 建立虛擬環境並啟動
+python -m venv venv
+source venv/bin/activate  # 在 Windows 上請使用 `venv\Scripts\activate`
+
 # 安裝相依套件
 pip install -r requirements.txt
 ```
 
 ## 使用方法
+
+### 網頁介面
+
+啟動網頁介面：
+```bash
+streamlit run web_app.py
+```
+
+網頁介面提供：
+- 拖放檔案上傳多張圖片
+- 圓形遮罩和嚴格模式的互動控制
+- 原始和處理圖片的預覽
+- 個別下載按鈕
+- 批次下載選項
+
+### 命令列工具
 
 處理單張圖片：
 ```bash
