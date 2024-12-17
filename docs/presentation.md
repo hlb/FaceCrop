@@ -129,8 +129,7 @@ style: |
 # Start Your Journey 
 
 ### Get Started Now:
-- GitHub: [github.com/yourusername/FaceCrop](https://github.com/yourusername/FaceCrop)
-- Documentation: [TECHNICAL.md](../TECHNICAL.md)
+- GitHub: [github.com/hlb/FaceCrop](https://github.com/hlb/FaceCrop)
 - Join our community!
 
 **Let's make event management a little more magical** 

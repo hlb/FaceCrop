@@ -134,8 +134,7 @@ style: |
 # 開始你的旅程 🌟
 
 ### 立即開始：
-- GitHub：[github.com/yourusername/FaceCrop](https://github.com/yourusername/FaceCrop)
-- 技術文件：[TECHNICAL.md](../TECHNICAL.md)
+- GitHub: [github.com/hlb/FaceCrop](https://github.com/hlb/FaceCrop)
 - 加入我們的社群！
 
 **讓活動管理更有魔法** ✨
