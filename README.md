@@ -4,14 +4,14 @@ A Python command-line tool for automatically detecting and cropping portrait pho
 
 ## Features
 
-- Automatic face detection and upper body cropping
-- Square output format with transparent background
-- Optional circular mask
-- Batch processing support
-- Multiple input formats support (JPG, JPEG, PNG, WEBP)
-- High-quality output preservation
-- Complete head visibility ensured
-- Centered face composition
+- Automatic face detection and portrait cropping
+- Clean, transparent background
+- Optional circular mask for profile-style photos
+- Batch processing for multiple images
+- Supports common image formats (JPG, PNG, WEBP)
+- Preserves original image quality
+
+For technical details about the implementation, please see [TECHNICAL.md](TECHNICAL.md).
 
 ## Installation
 
@@ -36,23 +36,21 @@ Process a directory of images:
 python face_crop.py input_directory --output output_directory
 ```
 
-With circular mask:
+Add circular mask:
 ```bash
 python face_crop.py image.jpg --circular
-# or for directory
-python face_crop.py input_directory --output output_directory --circular
 ```
 
 ### Arguments
 
-- `input`: Input image file or directory path
-- `--output`: Output directory path (required for directory input, optional for single file)
-- `--circular`: Apply circular mask to the output (optional)
+- `input`: Input image file or directory
+- `--output`: Output directory (required for directory input)
+- `--circular`: Add circular mask (optional)
 
 ## Output
 
 - Format: PNG with transparency
-- Naming: `[original_filename]_cropped.png`
+- Name: `[original_name]_cropped.png`
 - Aspect ratio: Square (1:1)
 
 ---
@@ -63,14 +61,14 @@ python face_crop.py input_directory --output output_directory --circular
 
 ## 功能特點
 
-- 自動檢測人臉並裁切上半身
-- 方形輸出格式，具透明背景
-- 可選擇性添加圓形遮罩
+- 自動檢測人臉並裁切人像
+- 乾淨的透明背景
+- 可選擇性添加圓形遮罩製作個人頭像
 - 支援批次處理多張圖片
-- 支援多種輸入格式（JPG、JPEG、PNG、WEBP）
+- 支援常見圖片格式（JPG、PNG、WEBP）
 - 保持原始圖片品質
-- 確保人像頭部完整顯示
-- 人臉居中構圖
+
+技術實作細節請參考 [TECHNICAL.md](TECHNICAL.md)。
 
 ## 安裝方式
 
@@ -95,21 +93,19 @@ python face_crop.py 圖片.jpg
 python face_crop.py 輸入資料夾 --output 輸出資料夾
 ```
 
-使用圓形遮罩：
+添加圓形遮罩：
 ```bash
 python face_crop.py 圖片.jpg --circular
-# 或是處理資料夾時
-python face_crop.py 輸入資料夾 --output 輸出資料夾 --circular
 ```
 
 ### 參數說明
 
-- `input`：輸入圖片或資料夾路徑
-- `--output`：輸出資料夾路徑（處理資料夾時必填，處理單張圖片時選填）
-- `--circular`：套用圓形遮罩（選用）
+- `input`：輸入圖片或資料夾
+- `--output`：輸出資料夾（處理資料夾時必須指定）
+- `--circular`：添加圓形遮罩（選用）
 
 ## 輸出結果
 
 - 格式：具透明度的 PNG
 - 檔名：`[原始檔名]_cropped.png`
-- 比例：正方形（1:1）
+- 比例：正方形 (1:1)
