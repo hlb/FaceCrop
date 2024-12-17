@@ -4,30 +4,23 @@ import cv2
 import numpy as np
 from PIL import Image
 from src.processor import ImageProcessor
+import tempfile
+import shutil
 
 class TestImageProcessor(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        """Set up test fixtures"""
+        cls.test_dir = tempfile.mkdtemp()
+        cls.output_path = os.path.join(cls.test_dir, 'output.jpg')
         cls.processor = ImageProcessor()
         
-        # Create test directory if it doesn't exist
-        cls.test_dir = os.path.join(os.path.dirname(__file__), 'test_data')
-        os.makedirs(cls.test_dir, exist_ok=True)
-        
-        # Create a test image with a face-like pattern
-        test_img = np.zeros((300, 300, 3), dtype=np.uint8)
-        # Draw a flesh-colored ellipse for face
-        cv2.ellipse(test_img, (150, 150), (60, 80), 0, 0, 360, (204, 172, 147), -1)
-        # Draw darker ellipses for eyes
-        cv2.ellipse(test_img, (120, 130), (10, 5), 0, 0, 360, (50, 50, 50), -1)
-        cv2.ellipse(test_img, (180, 130), (10, 5), 0, 0, 360, (50, 50, 50), -1)
-        
-        # Save test image
-        cls.test_image_path = os.path.join(cls.test_dir, 'test_face.png')
-        cv2.imwrite(cls.test_image_path, test_img)
-        
-        # Output path for processed images
-        cls.output_path = os.path.join(cls.test_dir, 'output.png')
+        # Use Mona Lisa test image
+        cls.fixture_image = os.path.join('tests', 'fixtures', 'images', 'Mona_Lisa.jpg')
+        if not os.path.exists(cls.fixture_image):
+            raise FileNotFoundError(f"Test fixture image not found: {cls.fixture_image}")
+        cls.test_image_path = os.path.join(cls.test_dir, 'test_image.jpg')
+        shutil.copy2(cls.fixture_image, cls.test_image_path)
         
     def tearDown(self):
         # Clean up output file after each test
