@@ -6,7 +6,7 @@ A Python tool for automatically detecting and cropping portrait photos with tran
 
 | Input | Output |
 | --- | --- |
-| Original image with full background and surrounding context ![Before](docs/before.png) | Automatically cropped image focused on the face and upper body, with transparent background ![Before](docs/after.png) |
+| Original image with full background and surrounding context ![Before](docs/before.png) | Automatically cropped image focused on the face and upper body, with transparent background ![After](docs/after.png) |
 
 ## Features
 
